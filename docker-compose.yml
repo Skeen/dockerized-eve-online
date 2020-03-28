@@ -1,0 +1,33 @@
+version: "3"
+services:
+  eve:
+    build:
+      context: .
+      dockerfile: Dockerfile.eve
+    environment:
+      DISPLAY: :1
+    volumes:
+      - xorg-socket:/tmp/.X11-unix
+  xdummy:
+    build:
+      context: .
+      dockerfile: Dockerfile.xdummy
+    volumes:
+      - xorg-socket:/tmp/.X11-unix
+    ports:
+      - 5900:5900
+#  x11vnc:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.x11vnc
+#    environment:
+#      DISPLAY: :1
+#      # QT_X11_NO_MITSHM: 1
+#      # _X11_NO_MITSHM: 1
+#      # _MITSHM: 0
+#    volumes:
+#      - xorg-socket:/tmp/.X11-unix
+#    ports:
+#      - 5900:5900
+volumes:
+  xorg-socket:
